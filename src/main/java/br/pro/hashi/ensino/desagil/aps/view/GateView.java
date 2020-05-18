@@ -25,6 +25,7 @@ public class GateView extends FixedPanel implements ActionListener, MouseListene
     private final Light L1;
     private final Light L2;
     private final Image image;
+    private Gate gate;
 
     // Novos atributos necessários para esta versão da interface.
     private Color color;
@@ -42,6 +43,7 @@ public class GateView extends FixedPanel implements ActionListener, MouseListene
         light = new Light(255, 0, 0);
         L1 = new  Light(0,0,255);
         L2 = new Light(0,0,255);
+        this.gate = gate;
 
 
         // Adiciona as Labels & Checkboxs criadas anteriormente na ordem de exibição
@@ -66,6 +68,7 @@ public class GateView extends FixedPanel implements ActionListener, MouseListene
 //            add(In0Box, 10, 48, 20, 20);
 
 
+
             // Pega a imagem da porta NOT
             String name = gate.toString() + ".png";
             URL url = getClass().getClassLoader().getResource(name);
@@ -85,7 +88,7 @@ public class GateView extends FixedPanel implements ActionListener, MouseListene
         // Conecta o gate ao receiver light
         light.connect(0, gate);
 
-//        L1.conenct
+//        L1.connect(
 
 //        addMouseListener(this);
 
@@ -192,6 +195,8 @@ public class GateView extends FixedPanel implements ActionListener, MouseListene
     @Override
     public void paintComponent(Graphics g) {
 
+        this.gate = gate;
+
         // Não podemos esquecer desta linha, pois não somos os
         // únicos responsáveis por desenhar o painel, como era
         // o caso nos Desafios. Agora é preciso desenhar também
@@ -203,10 +208,18 @@ public class GateView extends FixedPanel implements ActionListener, MouseListene
         g.drawImage(image, 20, 10, 192, 96, this);
 
 
-        g.drawRect(10, 68, 20, 20);
-        g.drawRect(10, 29, 20, 20);
+        if (gate.getInputSize() != 1) {
+            g.drawRect(10, 68, 20, 20);
+            g.drawRect(10, 29, 20, 20);
+        } else {
+            g.drawRect(10, 48, 20, 20);
+
+        }
 
 //            g.drawRect(10, 48, 20, 20);
+
+
+
 
 
 
